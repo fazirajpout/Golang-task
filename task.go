@@ -1,5 +1,6 @@
 package main
 
+
 import (
   "log"
   "net/http"
@@ -11,6 +12,7 @@ func initializeRouter(){
      r.HandleFunc("/students/{id}",GetStudent).Methods("GET")
      r.HandleFunc("/teachers",CreateTeacher).Methods("POST")
      r.HandleFunc("/students",CreateStudent).Methods("POST")
+     r.HandleFunc("/login",Login).Methods("POST")
      r.HandleFunc("/students/{id}",UpdateStudent).Methods("PUT")
      r.HandleFunc("/students/{id}",DeleteStudent).Methods("DELETE")
      

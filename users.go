@@ -1,5 +1,6 @@
 package main
 
+
 import (
    "encoding/json"
    "net/http"
@@ -10,7 +11,7 @@ import (
  )
 var DB *gorm.DB
 var err error
-const DNS = "root:henry37572@tcp(127.0.0.1:3306)/go_db?parseTime=true"
+const DNS = "root:henry37572@tcp(host.docker.internal:3306)/go_db?parseTime=true"
 
 type Student struct{
      gorm.Model
@@ -89,4 +90,15 @@ func DeleteStudent(w http.ResponseWriter, r *http.Request){
       var student Student
       DB.Delete(&student, params["id"])
       json.NewEncoder(w).Encode("The User is Successfully Deleted")
+}
+func Login(w http.ResponseWriter, r *http.Request){
+     w.Header().Set("Content-Type", "application/json")
+     var teacher Teacher
+     json.NewDecoder(r.Body).Decode(&teacher)
+     error := DB.Where("name = ? AND Password = ?",teacher.Name,teacher.Password).First(&teacher)
+     if error == nil {
+             w.WriteHeader(http.StatusBadRequest)
+		return
+      }
+     json.NewEncoder(w).Encode("The User is Successfully Logged In")
 }
