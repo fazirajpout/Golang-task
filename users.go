@@ -13,7 +13,7 @@ import (
  )
 var DB *gorm.DB
 var err error
-const DNS = "root:henry37572@tcp(127.0.0.1:3306)/go_db?parseTime=true"
+const DNS = "root:henry37572@tcp(host.docker.internal:3306)/go_db?parseTime=true"
 
 type Student struct{
      gorm.Model
